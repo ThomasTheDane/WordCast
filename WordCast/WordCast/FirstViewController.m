@@ -32,10 +32,11 @@
         NSLog(@"hit send");
         NSLog(@"To: %@", [self.toText text]);
         if(![[self.toText text] isEqualToString:@""]){
-//            NSString *toUrl = [@"https://wordcast.firebaseio.com/" stringByAppendingString:[toText text]];
-//            NSLog(toUrl);
-//            fSender = [[Firebase alloc] initWithUrl:[@"https://wordcast.firebaseio.com/" stringByAppendingString:[toText text]]];
-//            [fSender setValue:@"Ezra sucks a lot of dick"];
+            NSString *toUrl = [@"https://wordcast.firebaseio.com/" stringByAppendingString:[self.toText text]];
+            NSLog(toUrl);
+            fSender = [[Firebase alloc] initWithUrl:toUrl];
+            Firebase *fPusher = [fSender childByAutoId];
+            [fPusher setValue:[self.messageText text]];
         }
     }
 }
