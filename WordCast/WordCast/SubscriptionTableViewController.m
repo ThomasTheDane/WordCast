@@ -7,6 +7,7 @@
 //
 
 #import "SubscriptionTableViewController.h"
+#import "WordMessages.h"
 #import <Firebase/Firebase.h>
 #import "Word.h"
 
@@ -46,6 +47,7 @@
     
     Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
     Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
+    
     [subscriptionManagerHead observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         [self.activitySpinner stopAnimating];
         NSLog(@"%@ -> %@", snapshot.name, snapshot.value);
@@ -53,6 +55,7 @@
         newWord.wordName = snapshot.value;
         newWord.wordMessages = [[NSMutableArray alloc] init];
         newWord.wordListener = [[Firebase alloc] initWithUrl:[@"https://wordcast.firebaseio.com/" stringByAppendingString:newWord.wordName]];
+        newWord.firebaseId = snapshot.name;
         [self.subscriptions addObject:newWord];
         [self.tableView reloadData];
     }];
@@ -96,14 +99,14 @@
         Word *newWord = [[Word alloc] init];
         newWord.wordName = [[alertView textFieldAtIndex:0] text];
         newWord.wordMessages = [[NSMutableArray alloc] init];
-        [self.subscriptions addObject:newWord];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//        [self.subscriptions addObject:newWord];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
         Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
         Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
         Firebase *subscriptionManager = [subscriptionManagerHead childByAutoId];
-        [subscriptionManager setValue:newWord];
+        [subscriptionManager setValue:newWord.wordName];
     }
 }
 
@@ -143,8 +146,15 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
+        Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
+        NSLog([[self.subscriptions objectAtIndex:indexPath.row] firebaseId]);
+        Firebase *subscriptionManager = [subscriptionManagerHead childByAppendingPath:[[self.subscriptions objectAtIndex:indexPath.row] firebaseId]];
+        [subscriptionManager removeValue];
+        
+        [self.subscriptions removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
@@ -172,7 +182,10 @@
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    Word *object = self.subscriptions[indexPath.row];
+    [[segue destinationViewController] setWordObject:object];
+
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }

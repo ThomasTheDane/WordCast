@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Word.h"
 
 @interface WordMessages : UIViewController{
-
-    IBOutlet UILabel *message;
+    IBOutlet UINavigationItem *titleBar;
+    IBOutlet UIScrollView *contentScroll;
+    int messageHeightSoFar;
+    NSMutableArray *textboxes;
 }
+
+-(void)setWordObject:(id)theWord;
+
+@property (strong, nonatomic) Word *word;
 
 @end

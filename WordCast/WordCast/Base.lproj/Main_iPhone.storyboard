@@ -48,7 +48,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Send" image="first" id="u1e-5L-l1D"/>
+                    <tabBarItem key="tabBarItem" title="Send" image="upPlane.png" id="u1e-5L-l1D"/>
                     <connections>
                         <outlet property="messageText" destination="alV-Ul-WA7" id="S7n-en-TPC"/>
                         <outlet property="sendButton" destination="wbe-5X-aKT" id="ik9-8v-jD2"/>
@@ -101,7 +101,7 @@
         <scene sceneID="FQd-fo-Dxv">
             <objects>
                 <navigationController definesPresentationContext="YES" id="vNT-8Q-6d1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Words" id="taS-gT-X79"/>
+                    <tabBarItem key="tabBarItem" title="My Words" image="downPlane.png" id="taS-gT-X79"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hzp-Za-v2g">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -125,19 +125,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvc-dT-nv7">
-                                <rect key="frame" x="99" y="178" width="122" height="59"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M3d-ds-gdb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="fK1-eb-Z3p"/>
                     <connections>
-                        <outlet property="message" destination="fvc-dT-nv7" id="U1s-Tn-wFo"/>
+                        <outlet property="contentScroll" destination="M3d-ds-gdb" id="eQs-Rm-BQR"/>
+                        <outlet property="titleBar" destination="fK1-eb-Z3p" id="iGP-Mo-f6i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HQ-dK-rYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -165,8 +163,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
+        <image name="downPlane.png" width="50" height="50"/>
         <image name="send.png" width="180" height="50"/>
+        <image name="upPlane.png" width="50" height="50"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

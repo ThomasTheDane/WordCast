@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class WordMessages;
+
 @interface SubscriptionTableViewController : UITableViewController{
     NSString *uniqueId;
     NSMutableArray *subscriptions;
@@ -19,5 +21,6 @@
 @property (strong, nonatomic) NSMutableArray *subscriptions;
 @property (strong, nonatomic) NSMutableArray *firebaseListeners;
 @property (strong, nonatomic) UIActivityIndicatorView *activitySpinner;
+@property (strong, nonatomic) WordMessages *wordMessages;
 
 @end

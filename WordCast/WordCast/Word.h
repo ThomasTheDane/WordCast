@@ -11,11 +11,13 @@
 
 @interface Word : NSObject{
     NSString *wordName;
+    NSString *firebaseId;
     NSMutableArray *wordMessages;
     Firebase *wordListener;
 }
 
 @property (strong, nonatomic) NSString *wordName;
+@property (strong, nonatomic) NSString *firebaseId;
 @property (strong, nonatomic) NSMutableArray *wordMessages;
 @property (strong, nonatomic) Firebase *wordListener;
 
