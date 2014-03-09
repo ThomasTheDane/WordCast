@@ -7,6 +7,8 @@
 //
 
 #import "SubscriptionTableViewController.h"
+#import <Firebase/Firebase.h>
+#import "Word.h"
 
 @interface SubscriptionTableViewController ()
     
@@ -27,6 +29,24 @@
 {
     [super viewDidLoad];
     NSLog(@"loaded subscription view");
+    
+    if([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] != NSOrderedAscending){
+        self.uniqueId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    }else{
+        //        NSLog([UIDevice currentDevice].uniqueIdentifier);
+    }
+    subscriptions = [[NSMutableArray alloc] init];
+    Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
+    Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
+    [subscriptionManagerHead observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        NSLog(@"%@ -> %@", snapshot.name, snapshot.value);
+        Word *newWord = [[Word alloc] init];
+        newWord.wordName = snapshot.value;
+        newWord.wordMessages = [[NSMutableArray alloc] init];
+        [subscriptions addObject:newWord];
+        [self.tableView reloadData];
+    }];
+    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
@@ -39,8 +59,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -64,9 +83,17 @@
         if(!subscriptions){
             subscriptions = [[NSMutableArray alloc] init];
         }
-        [subscriptions addObject:@"EAT DICK EZRA"];
+        Word *newWord = [[Word alloc] init];
+        newWord.wordName = [[alertView textFieldAtIndex:0] text];
+        newWord.wordMessages = [[NSMutableArray alloc] init];
+        [subscriptions addObject:newWord];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
+        Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
+        Firebase *subscriptionManager = [subscriptionManagerHead childByAutoId];
+        [subscriptionManager setValue:newWord];
     }
 }
 
@@ -88,7 +115,7 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    [cell.textLabel setText:[subscriptions[indexPath.row] wordName]];
     // Configure the cell...
     
     return cell;
@@ -135,6 +162,7 @@
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }

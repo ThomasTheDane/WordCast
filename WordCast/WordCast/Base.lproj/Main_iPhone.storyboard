@@ -57,45 +57,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh2-T1-AhA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="665" y="-304"/>
-        </scene>
-        <!--Messages Table View Controller - Your Messages-->
-        <scene sceneID="idk-Kt-CTw">
-            <objects>
-                <tableViewController id="a8G-RI-d6n" customClass="MessagesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gjs-7I-iY2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="AfX-py-GX8" style="IBUITableViewCellStyleDefault" id="AVv-Vi-k6b">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AVv-Vi-k6b" id="VFM-1B-G4v">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AfX-py-GX8">
-                                            <rect key="frame" x="15" y="0.0" width="270" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="tVh-gM-DcY" kind="push" id="aKh-0a-eed"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Your Messages" id="Lkd-TW-M11"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TDp-uk-8xS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1199" y="338"/>
+            <point key="canvasLocation" x="665" y="8"/>
         </scene>
         <!--Subscription Table View Controller - Subscriptions-->
         <scene sceneID="ulM-Rh-8gm">
@@ -123,6 +85,9 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="tVh-gM-DcY" kind="push" id="ndK-HM-TAK"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
@@ -130,13 +95,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="erf-bM-iqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="1031"/>
+            <point key="canvasLocation" x="1199" y="617"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - My Words-->
         <scene sceneID="FQd-fo-Dxv">
             <objects>
                 <navigationController definesPresentationContext="YES" id="vNT-8Q-6d1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="taS-gT-X79"/>
+                    <tabBarItem key="tabBarItem" title="My Words" id="taS-gT-X79"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hzp-Za-v2g">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -146,23 +111,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CwF-DQ-Dpn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="665" y="1031"/>
-        </scene>
-        <!--Navigation Controller - Item-->
-        <scene sceneID="qNz-HA-xWi">
-            <objects>
-                <navigationController definesPresentationContext="YES" id="POZ-iO-OF1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="hZw-Im-xnv"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bv7-fI-6hW">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="a8G-RI-d6n" kind="relationship" relationship="rootViewController" id="aI6-Jm-1Zb"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gYU-rl-TEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="665" y="338"/>
+            <point key="canvasLocation" x="665" y="617"/>
         </scene>
         <!--Word Messages-->
         <scene sceneID="oMQ-3W-eG3">
@@ -193,7 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HQ-dK-rYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1738" y="338"/>
+            <point key="canvasLocation" x="1756" y="617"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Vex-rW-GRa">
@@ -207,7 +156,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="CZ4-MO-1fc" kind="relationship" relationship="viewControllers" id="SUk-Ux-ee1"/>
-                        <segue destination="POZ-iO-OF1" kind="relationship" relationship="viewControllers" id="dng-BH-ALm"/>
                         <segue destination="vNT-8Q-6d1" kind="relationship" relationship="viewControllers" id="1cZ-bC-IIi"/>
                     </connections>
                 </tabBarController>

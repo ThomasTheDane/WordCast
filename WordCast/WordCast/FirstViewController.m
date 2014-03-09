@@ -26,19 +26,35 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
     CGPoint pt = [[touches anyObject] locationInView:self.view];
     if(CGRectContainsPoint([self.sendButton frame], pt)){
         NSLog(@"hit send");
         NSLog(@"To: %@", [self.toText text]);
-        if(![[self.toText text] isEqualToString:@""]){
+        if(![[self.toText text] isEqualToString:@""] && ![[self.messageText text] isEqualToString:@""]){
             NSString *toUrl = [@"https://wordcast.firebaseio.com/" stringByAppendingString:[self.toText text]];
-            NSLog(toUrl);
             fSender = [[Firebase alloc] initWithUrl:toUrl];
             Firebase *fPusher = [fSender childByAutoId];
             [fPusher setValue:[self.messageText text]];
+            [self.messageText setText:@""];
+            [self displaySentMessage];
         }
     }
+    [self.view endEditing:YES];
+}
+
+-(void)displaySentMessage{
+    UIImageView *sentMessageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 150)];
+    [sentMessageView setCenter:CGPointMake(320 / 2, 480 /2)];
+    [sentMessageView setImage:[UIImage imageNamed:@"sentMessage.png"]];
+    [self.view addSubview:sentMessageView];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationDelay:1.0];
+    
+    [sentMessageView setAlpha:0.0];
+    
+    [UIView commitAnimations];
 }
 
 - (void) animateTextView:(BOOL) up

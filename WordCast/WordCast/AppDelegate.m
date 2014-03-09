@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Firebase/Firebase.h>
 
 @implementation AppDelegate
 
@@ -16,6 +17,14 @@
     UIRemoteNotificationType mTypes = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
     [application registerForRemoteNotificationTypes:mTypes];
     NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    
+    NSString *uId = @"";
+    if([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] != NSOrderedAscending){
+        NSLog([[[UIDevice currentDevice] identifierForVendor] UUIDString]);
+        uId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    }else{
+//        NSLog([UIDevice currentDevice].uniqueIdentifier);
+    }
     return YES;
 }
 

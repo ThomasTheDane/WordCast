@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface SubscriptionTableViewController : UITableViewController{
+    NSString *uniqueId;
     NSMutableArray *subscriptions;
+    NSMutableArray *firebaseListeners;
 }
+
+@property (strong, nonatomic) NSString *uniqueId;
+@property (strong, nonatomic) NSMutableArray *subscriptions;
+@property (strong, nonatomic) NSMutableArray *firebaseListeners;
 
 @end
