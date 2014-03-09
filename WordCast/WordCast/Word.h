@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Firebase/Firebase.h>
 
 @interface Word : NSObject{
     NSString *wordName;
     NSMutableArray *wordMessages;
+    Firebase *wordListener;
 }
 
 @property (strong, nonatomic) NSString *wordName;
 @property (strong, nonatomic) NSMutableArray *wordMessages;
+@property (strong, nonatomic) Firebase *wordListener;
 
 @end

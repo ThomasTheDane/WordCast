@@ -12,10 +12,12 @@
     NSString *uniqueId;
     NSMutableArray *subscriptions;
     NSMutableArray *firebaseListeners;
+    UIActivityIndicatorView *activitySpinner;
 }
 
 @property (strong, nonatomic) NSString *uniqueId;
 @property (strong, nonatomic) NSMutableArray *subscriptions;
 @property (strong, nonatomic) NSMutableArray *firebaseListeners;
+@property (strong, nonatomic) UIActivityIndicatorView *activitySpinner;
 
 @end

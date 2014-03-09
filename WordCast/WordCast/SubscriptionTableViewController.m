@@ -35,15 +35,25 @@
     }else{
         //        NSLog([UIDevice currentDevice].uniqueIdentifier);
     }
-    subscriptions = [[NSMutableArray alloc] init];
+    
+    self.activitySpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.activitySpinner setCenter:CGPointMake(320 / 2.0, 25)];
+    [self.view addSubview:self.activitySpinner];
+    [self.activitySpinner startAnimating];
+    [self.activitySpinner setHidesWhenStopped:YES];
+
+    self.subscriptions = [[NSMutableArray alloc] init];
+    
     Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
     Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
     [subscriptionManagerHead observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+        [self.activitySpinner stopAnimating];
         NSLog(@"%@ -> %@", snapshot.name, snapshot.value);
         Word *newWord = [[Word alloc] init];
         newWord.wordName = snapshot.value;
         newWord.wordMessages = [[NSMutableArray alloc] init];
-        [subscriptions addObject:newWord];
+        newWord.wordListener = [[Firebase alloc] initWithUrl:[@"https://wordcast.firebaseio.com/" stringByAppendingString:newWord.wordName]];
+        [self.subscriptions addObject:newWord];
         [self.tableView reloadData];
     }];
     
@@ -80,16 +90,16 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 1){
-        if(!subscriptions){
-            subscriptions = [[NSMutableArray alloc] init];
+        if(!self.subscriptions){
+            self.subscriptions = [[NSMutableArray alloc] init];
         }
         Word *newWord = [[Word alloc] init];
         newWord.wordName = [[alertView textFieldAtIndex:0] text];
         newWord.wordMessages = [[NSMutableArray alloc] init];
-        [subscriptions addObject:newWord];
+        [self.subscriptions addObject:newWord];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
+
         Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
         Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
         Firebase *subscriptionManager = [subscriptionManagerHead childByAutoId];
@@ -108,14 +118,14 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return subscriptions.count;
+    return self.subscriptions.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    [cell.textLabel setText:[subscriptions[indexPath.row] wordName]];
+    [cell.textLabel setText:[self.subscriptions[indexPath.row] wordName]];
     // Configure the cell...
     
     return cell;
