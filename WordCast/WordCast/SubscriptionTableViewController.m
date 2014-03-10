@@ -48,6 +48,15 @@
     Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
     Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
     
+    [subscriptionManagerHead observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        NSLog(@"checking if there is any at child");
+        if(snapshot.value == [NSNull null]){
+            Firebase *subscriptionManager = [subscriptionManagerHead childByAutoId];
+            [subscriptionManager setValue:@"welcome"];
+        }
+    }];
+
+    
     [subscriptionManagerHead observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
         [self.activitySpinner stopAnimating];
         NSLog(@"%@ -> %@", snapshot.name, snapshot.value);
@@ -99,9 +108,6 @@
         Word *newWord = [[Word alloc] init];
         newWord.wordName = [[alertView textFieldAtIndex:0] text];
         newWord.wordMessages = [[NSMutableArray alloc] init];
-//        [self.subscriptions addObject:newWord];
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
         Firebase *subscriptionManagerHeadHead = [[Firebase alloc] initWithUrl:@"https://wordcast.firebaseio.com/superDuperSecretSubscriptionsManagerHopeNoOneEverFindsThisThatWouldBeBadIShouldProbablyAddSomeRandomNumbersAndStuff12404u58298dsfonvo28dl2"];
         Firebase *subscriptionManagerHead = [subscriptionManagerHeadHead childByAppendingPath:self.uniqueId];
